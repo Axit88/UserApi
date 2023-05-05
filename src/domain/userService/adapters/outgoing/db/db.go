@@ -2,6 +2,7 @@ package db
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	"github.com/Axit88/UserApi/src/domain/userService/core/model"
@@ -44,11 +45,31 @@ func (da Adapter) Insert(input *model.User) error {
 }
 
 func (da Adapter) Update(userId string, userName string) error {
-	_, err := da.db.Exec("UPDATE USER SET UserName = ? WHERE UserId = ?", userId, userName)
+	var count int
+	err := da.db.QueryRow("SELECT COUNT(*) FROM USER WHERE UserId=?", userId).Scan(&count)
+	if err != nil {
+		return err
+	}
+
+	if count == 0 {
+		return fmt.Errorf("User %v Not Found", userId)
+	}
+	_, err = da.db.Exec("UPDATE USER SET UserName = ? WHERE UserId = ?", userName, userId)
 	return err
 }
 
 func (da Adapter) Select(userId string) (*model.User, error) {
+
+	var count int
+	err := da.db.QueryRow("SELECT COUNT(*) FROM USER WHERE UserId=?", userId).Scan(&count)
+	if err != nil {
+		return nil, err
+	}
+
+	if count == 0 {
+		return nil, fmt.Errorf("User %v Not Found", userId)
+	}
+
 	queryResult, err := da.db.Query("SELECT * FROM USER WHERE UserId = ?", userId)
 	if err != nil {
 		return nil, err
@@ -65,6 +86,15 @@ func (da Adapter) Select(userId string) (*model.User, error) {
 }
 
 func (da Adapter) Delete(userId string) error {
-	_, err := da.db.Exec("DELETE FROM USER WHERE UserId = ?", userId)
+	var count int
+	err := da.db.QueryRow("SELECT COUNT(*) FROM USER WHERE UserId=?", userId).Scan(&count)
+	if err != nil {
+		return err
+	}
+
+	if count == 0 {
+		return fmt.Errorf("User %v Not Found", userId)
+	}
+	_, err = da.db.Exec("DELETE FROM USER WHERE UserId = ?", userId)
 	return err
 }

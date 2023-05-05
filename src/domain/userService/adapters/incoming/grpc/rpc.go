@@ -63,7 +63,7 @@ func (grpca Adapter) UpdateUser(ctx context.Context, req *pb.UpdateUserInput) (*
 		return nil, err
 	}
 	output := pb.UpdateUserOutput{
-		Message: fmt.Sprintf("User %v Updated Successfully", req.UserName),
+		Message: fmt.Sprintf("User %v Updated Successfully", req.UserId),
 	}
 
 	return &output, nil

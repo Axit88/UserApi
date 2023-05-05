@@ -3,11 +3,11 @@ package main
 import (
 	"log"
 
+	rest "github.com/Axit88/UserApi/src/domain/userService/adapters/incoming/rest"
 	"github.com/Axit88/UserApi/src/domain/userService/adapters/outgoing/db"
 	application "github.com/Axit88/UserApi/src/domain/userService/application"
 	core "github.com/Axit88/UserApi/src/domain/userService/core"
 	"github.com/gin-gonic/gin"
-	rest "github.com/Axit88/UserApi/src/domain/userService/adapters/incoming/rest"
 )
 
 func main() {
@@ -33,6 +33,5 @@ func main() {
 	router.DELETE("/User/:id", httpHandler.DeleteUser)
 	router.Run("localhost:9090")
 }
-
 
 // go run restServer.go
