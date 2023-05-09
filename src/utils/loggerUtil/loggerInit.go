@@ -77,7 +77,7 @@ func InitLogger() (*logger.LoggerImpl, error) {
 func getParsedLoggerYamlConfig() (*LoggerConfigs, error) {
 	loggerConfigs := new(LoggerConfigs)
 	pwd, _ := os.Getwd()
-	currentFilePath := pwd + "/utils/loggerUtil/logger_config.yaml"
+	currentFilePath := pwd + "/src/utils/loggerUtil/logger_config.yaml"
 	if !(os.Getenv("LAMBDA_TASK_ROOT") == "" && os.Getenv("AWS_EXECUTION_ENV") == "") {
 		lambdaPath, _ := os.Executable()
 		currentFilePath = lambdaPath

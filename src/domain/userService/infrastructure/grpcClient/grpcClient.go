@@ -9,17 +9,19 @@ import (
 	"github.com/Axit88/UserApi/src/config"
 	ports "github.com/Axit88/UserApi/src/domain/userService/core/ports/incoming"
 	"github.com/Axit88/UserApi/src/domain/userService/infrastructure/grpcClient/pb"
+	"github.com/MindTickle/mt-go-logger/logger"
 
 	"google.golang.org/grpc"
 )
 
 type Adapter struct {
-	api ports.APIPort
+	logger *logger.LoggerImpl
+	api    ports.APIPort
 	pb.UnimplementedTestApiServer
 }
 
-func NewAdapter(api ports.APIPort) *Adapter {
-	return &Adapter{api: api}
+func NewAdapter(api ports.APIPort, l *logger.LoggerImpl) *Adapter {
+	return &Adapter{api: api, logger: l}
 }
 
 func (grpca Adapter) GetUser(ctx context.Context, req *pb.GetUserInput) (*pb.GetUserOutput, error) {

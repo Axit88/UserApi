@@ -6,6 +6,7 @@ import (
 	"github.com/Axit88/UserApi/src/constants"
 	"github.com/Axit88/UserApi/src/domain/userService/infrastructure/adapters"
 	"github.com/Axit88/UserApi/src/domain/userService/infrastructure/dbClient"
+	"github.com/Axit88/UserApi/src/utils/loggerUtil"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -13,10 +14,11 @@ var facade *UserServiceImpl
 
 func init() {
 	constants.IsMock = true
-
-	db, _ := dbClient.NewDbClient()
+	l, _ := loggerUtil.InitLogger()
+	db, _ := dbClient.NewDbClient(l)
 	facade = &UserServiceImpl{
 		db: db,
+		logger: l,
 	}
 
 	constants.IsMock = false

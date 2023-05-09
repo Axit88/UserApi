@@ -35,7 +35,8 @@ type DbConfig struct {
 func getParsedYamlConfig() (*EnvConfigs, error) {
 	envConfigs := new(EnvConfigs)
 
-	lambdaPath := "/Users/axit/Desktop/UserApiP&A/src/config"
+	pwd, _ := os.Getwd()
+	lambdaPath := pwd + "/src/config"
 	filePath := path.Join(lambdaPath, "config.yaml")
 	yamlData, err := os.ReadFile(filePath)
 	if err != nil {

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build: .  # Dockerfile is in current directory
+    ports:
+      - "9090:9090"  
+    volumes:
+      - .:/usr/src/app
+    command: go run src/server/restServer/restServer.go -b 0.0.0.0  
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: UserService
+      MYSQL_PASSWORD: root
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
+

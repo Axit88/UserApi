@@ -1,23 +1,24 @@
 package infrastructure
 
 import (
+	"net/http"
+
 	"github.com/Axit88/UserApi/src/config"
 	"github.com/Axit88/UserApi/src/domain/userService/core/ports/incoming"
 	"github.com/Axit88/UserApi/src/domain/userService/infrastructure/adapters"
-
-	"net/http"
-
-	//"github.com/Axit88/UserApi/src/domain/userService/core/model"
+	"github.com/MindTickle/mt-go-logger/logger"
 	"github.com/gin-gonic/gin"
 )
 
 type HTTPHandler struct {
-	svc incoming.APIPort
+	logger *logger.LoggerImpl
+	svc    incoming.APIPort
 }
 
-func NewHTTPHandler(userService incoming.APIPort) *HTTPHandler {
+func NewHTTPHandler(userService incoming.APIPort, l *logger.LoggerImpl) *HTTPHandler {
 	return &HTTPHandler{
-		svc: userService,
+		svc:    userService,
+		logger: l,
 	}
 }
 
