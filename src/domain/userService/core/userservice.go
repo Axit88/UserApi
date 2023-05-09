@@ -1,7 +1,8 @@
-package arithmetic
+package core
 
 import (
 	"github.com/Axit88/UserApi/src/domain/userService/core/model"
+	"github.com/Axit88/UserApi/src/domain/userService/core/ports/incoming"
 	outgoing "github.com/Axit88/UserApi/src/domain/userService/core/ports/outgoing"
 )
 
@@ -9,7 +10,7 @@ type UserServiceImpl struct {
 	db outgoing.DbPort
 }
 
-func New(db outgoing.DbPort) *UserServiceImpl {
+func New(db outgoing.DbPort) incoming.UserService {
 	return &UserServiceImpl{db: db}
 }
 

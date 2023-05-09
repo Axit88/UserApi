@@ -1,8 +1,7 @@
-package ports
+package outgoing
 
 import "github.com/Axit88/UserApi/src/domain/userService/core/model"
 
-// DbPort is the port for a db adapter
 type DbPort interface {
 	CloseDbConnection()
 	Insert(input *model.User) error
