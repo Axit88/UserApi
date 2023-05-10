@@ -40,6 +40,17 @@ func NewDbClient(l *logger.LoggerImpl) (outgoing.DbPort, error) {
 		log.Fatalf("db ping failure: %v", err)
 	}
 
+	_, err = db.Exec(`
+		CREATE TABLE IF NOT EXISTS USER (
+			UserId VARCHAR(255) PRIMARY KEY,
+			UserName VARCHAR(255)
+		)
+	`)
+	if err != nil {
+		l.Errorf(context.Background(), "db init failure", err)
+		log.Fatalf("db init failure: %v", err)
+	}
+
 	return &DbImpl{db: db, logger: l}, nil
 }
 
