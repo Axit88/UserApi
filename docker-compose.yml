@@ -7,7 +7,7 @@ services:
       - "9090:9090"  
     volumes:
       - .:/usr/src/app
-    command: go run src/server/restServer/restServer.go -b 0.0.0.0  
+    command: go run src/server/restServer/restServer.go -b 0.0.0.0
     depends_on:
       - db
 

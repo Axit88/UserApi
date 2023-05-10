@@ -17,7 +17,7 @@ func (s DbMockClient) Update(userId string, userName string) error {
 }
 
 func (s DbMockClient) Select(userId string) (*model.User, error) {
-	return adapters.GetCreateUserRequest("99","Tushar"), nil
+	return adapters.GetCreateUserRequest("99", "Tushar"), nil
 }
 
 func (s DbMockClient) Delete(userId string) error {

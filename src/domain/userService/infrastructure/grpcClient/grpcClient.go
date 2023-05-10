@@ -26,10 +26,11 @@ func NewAdapter(api ports.APIPort, l *logger.LoggerImpl) *Adapter {
 
 func (grpca Adapter) GetUser(ctx context.Context, req *pb.GetUserInput) (*pb.GetUserOutput, error) {
 	res, err := grpca.api.ProcessGetUser(req.UserId)
-
 	if err != nil {
+		grpca.logger.Errorf(ctx, "Application Is Not Able To Process Request", err)
 		return nil, err
 	}
+
 	ans := pb.GetUserOutput{
 		UserId:   res.UserId,
 		UserName: res.UserName,
@@ -41,10 +42,11 @@ func (grpca Adapter) GetUser(ctx context.Context, req *pb.GetUserInput) (*pb.Get
 func (grpca Adapter) AddUser(ctx context.Context, req *pb.AddUserInput) (*pb.AddUserOutput, error) {
 
 	err := grpca.api.ProcessAddUser(req.UserId, req.UserName)
-
 	if err != nil {
+		grpca.logger.Errorf(ctx, "Application Is Not Able To Process Request", err)
 		return nil, err
 	}
+
 	output := pb.AddUserOutput{
 		Message: fmt.Sprintf("User %v Added Successfully", req.UserName),
 	}
@@ -55,10 +57,11 @@ func (grpca Adapter) AddUser(ctx context.Context, req *pb.AddUserInput) (*pb.Add
 func (grpca Adapter) DeleteUser(ctx context.Context, req *pb.DeleteUserInput) (*pb.DeleteUserOutput, error) {
 
 	err := grpca.api.ProcessDeleteUser(req.UserId)
-
 	if err != nil {
+		grpca.logger.Errorf(ctx, "Application Is Not Able To Process Request", err)
 		return nil, err
 	}
+
 	output := pb.DeleteUserOutput{
 		Message: fmt.Sprintf("User %v Deleted Successfully", req.UserId),
 	}
@@ -69,10 +72,11 @@ func (grpca Adapter) DeleteUser(ctx context.Context, req *pb.DeleteUserInput) (*
 func (grpca Adapter) UpdateUser(ctx context.Context, req *pb.UpdateUserInput) (*pb.UpdateUserOutput, error) {
 
 	err := grpca.api.ProcessUpdateUser(req.UserId, req.UserName)
-
 	if err != nil {
+		grpca.logger.Errorf(ctx, "Application Is Not Able To Process Request", err)
 		return nil, err
 	}
+
 	output := pb.UpdateUserOutput{
 		Message: fmt.Sprintf("User %v Updated Successfully", req.UserId),
 	}

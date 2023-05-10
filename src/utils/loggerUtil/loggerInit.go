@@ -53,13 +53,10 @@ func InitLogger() (*logger.LoggerImpl, error) {
 
 	conf := loggerConfig.Configs[env]
 	if conf == nil {
-		return nil, errors.New("Error in logger config file")
+		return nil, errors.New("error in logger config file")
 	}
 
-	level, err := getLevel(conf.Level)
-	if err != nil {
-		// Error: Invalid level found, Setting log level to debug.
-	}
+	level, _ := getLevel(conf.Level)
 
 	zapWriteSyncers := make([]zapcore.WriteSyncer, 0)
 	for _, fileName := range conf.OutputPaths {

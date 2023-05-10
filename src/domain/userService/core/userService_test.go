@@ -17,7 +17,7 @@ func init() {
 	l, _ := loggerUtil.InitLogger()
 	db, _ := dbClient.NewDbClient(l)
 	facade = &UserServiceImpl{
-		db: db,
+		db:     db,
 		logger: l,
 	}
 

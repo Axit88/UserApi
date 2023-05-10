@@ -21,7 +21,7 @@ func New(db outgoing.DbPort, l *logger.LoggerImpl) incoming.UserService {
 func (worker UserServiceImpl) AddUser(input *model.User) error {
 	err := worker.db.Insert(input)
 	if err != nil {
-		worker.logger.Errorf(context.Background(), "Failed To Process AddUser Core Request", err)
+		worker.logger.Errorf(context.Background(), "Db Insert Failed", err)
 	}
 
 	return err
@@ -30,7 +30,7 @@ func (worker UserServiceImpl) AddUser(input *model.User) error {
 func (worker UserServiceImpl) GetUser(userId string) (*model.User, error) {
 	res, err := worker.db.Select(userId)
 	if err != nil {
-		worker.logger.Errorf(context.Background(), "Failed To Process GetUser Core Request", err)
+		worker.logger.Errorf(context.Background(), "Db Select Failed", err)
 	}
 
 	return res, err
@@ -39,7 +39,7 @@ func (worker UserServiceImpl) GetUser(userId string) (*model.User, error) {
 func (worker UserServiceImpl) DeleteUser(userId string) error {
 	err := worker.db.Delete(userId)
 	if err != nil {
-		worker.logger.Errorf(context.Background(), "Failed To Process DeleteUser Core Request", err)
+		worker.logger.Errorf(context.Background(), "Db Delete Failed", err)
 	}
 
 	return err
@@ -48,7 +48,7 @@ func (worker UserServiceImpl) DeleteUser(userId string) error {
 func (worker UserServiceImpl) UpdateUser(userId string, userName string) error {
 	err := worker.db.Update(userId, userName)
 	if err != nil {
-		worker.logger.Errorf(context.Background(), "Failed To Process UpdateUser Core Request", err)
+		worker.logger.Errorf(context.Background(), "Db Update Failed", err)
 	}
 
 	return err

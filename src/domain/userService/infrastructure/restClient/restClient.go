@@ -26,7 +26,8 @@ func (h HTTPHandler) GetUser(context *gin.Context) {
 	id := context.Param("id")
 	res, err := h.svc.ProcessGetUser(id)
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"Core Is Not Able To Process Request": err})
+		h.logger.Errorf(context, "Application Is Not Able To Process Request", err)
+		context.JSON(http.StatusBadRequest, gin.H{"Application Is Not Able To Process Request": err})
 		return
 	}
 
@@ -38,13 +39,15 @@ func (h HTTPHandler) AddUser(context *gin.Context) {
 	newUser := adapters.GetCreateUserRequest("", "")
 	err := context.BindJSON(&newUser)
 	if err != nil {
+		h.logger.Errorf(context, "Invalid Json Payload", err)
 		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Json Payload"})
 		return
 	}
 
 	err = h.svc.ProcessAddUser(newUser.UserId, newUser.UserName)
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"Core Is Not Able To Process Request": err})
+		h.logger.Errorf(context, "Application Is Not Able To Process Request", err)
+		context.JSON(http.StatusBadRequest, gin.H{"Application Is Not Able To Process Request": err})
 		return
 	}
 
@@ -56,7 +59,8 @@ func (h HTTPHandler) DeleteUser(context *gin.Context) {
 
 	err := h.svc.ProcessDeleteUser(id)
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"Core Is Not Able To Process Reuqest": err})
+		h.logger.Errorf(context, "Application Is Not Able To Process Request", err)
+		context.JSON(http.StatusBadRequest, gin.H{"Application Is Not Able To Process Reuqest": err})
 		return
 	}
 
@@ -68,13 +72,16 @@ func (h HTTPHandler) UpdateUser(context *gin.Context) {
 	newUser := adapters.GetCreateUserRequest("", "")
 	err := context.BindJSON(&newUser)
 	if err != nil {
+		h.logger.Errorf(context, "Invalid Json Payload", err)
+		context.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Json Payload"})
 		return
 	}
 
 	id := context.Param("id")
 	err = h.svc.ProcessUpdateUser(id, newUser.UserName)
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"Core Is Not Able To Process Reuqest": err})
+		h.logger.Errorf(context, "Application Is Not Able To Process Request", err)
+		context.JSON(http.StatusBadRequest, gin.H{"Application Is Not Able To Process Reuqest": err})
 		return
 	}
 

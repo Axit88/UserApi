@@ -13,3 +13,4 @@ RUN echo "Host github.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 RUN git config --global url."git@github.com:".insteadOf "https://github.com/"
 
 RUN go mod tidy
+

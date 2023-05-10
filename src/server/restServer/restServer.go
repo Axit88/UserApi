@@ -8,7 +8,7 @@ import (
 
 func main() {
 	utils.SetEnv()
-	
+
 	cont, err := container.UserServiceContainer()
 	if err != nil {
 		panic(err)
