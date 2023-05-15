@@ -5,6 +5,8 @@ const (
 	DatabaseUsername = "root"
 	DatabasePassword = "root"
 	DatabaseName     = "UserService"
+	GRPC_HOST        = "localhost"
+	GRPC_PORT        = "8080"
 )
 
 const (

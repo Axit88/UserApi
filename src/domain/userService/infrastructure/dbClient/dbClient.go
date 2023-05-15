@@ -51,7 +51,10 @@ func NewDbClient(l *logger.LoggerImpl) (outgoing.DbPort, error) {
 		log.Fatalf("db init failure: %v", err)
 	}
 
-	return &DbImpl{db: db, logger: l}, nil
+	return &DbImpl{
+		db:     db,
+		logger: l,
+	}, nil
 }
 
 func (da DbImpl) CloseDbConnection() {
