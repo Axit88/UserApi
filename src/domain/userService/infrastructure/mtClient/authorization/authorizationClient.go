@@ -18,6 +18,7 @@ type AuthorizationImpl struct {
 }
 
 func NewAuthorizationClient(l *logger.LoggerImpl) outgoing.AuthorizationClient {
+
 	if constants.IsMock {
 		return AuthorizationMockClient{}
 	}
@@ -35,7 +36,6 @@ func NewAuthorizationClient(l *logger.LoggerImpl) outgoing.AuthorizationClient {
 }
 
 func (client AuthorizationImpl) GetCompnanyRolePermission(url string, companyId string, reqMeta common.RequestMeta, recMeta common.RecordMeta) error {
-
 	data := pb.GetRoleAndPermissionsRequest{RequestMeta: &reqMeta, RecordMeta: &recMeta}
 	data.CompanyIds = append(data.CompanyIds, companyId)
 
