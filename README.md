@@ -20,7 +20,11 @@ Open terminal in project root directory and run command
 
 ### Prerequisites
 Change DATABASE_HOST_URL="db:3306" at src/env/local.env    
-Add id_rsa file in project root folder which contain github SSH Key.  
+Fetch id_rsa file from local machine run this command  
+<pre>
+bash prep.sh
+</pre> 
+
 ### Run command 
 <pre>
 docker compose build   

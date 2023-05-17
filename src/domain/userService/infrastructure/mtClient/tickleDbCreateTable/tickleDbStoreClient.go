@@ -22,7 +22,7 @@ func NewTickleDbStoreImplClient(l *logger.LoggerImpl) outgoing.TickleDbCreateTab
 	if constants.IsMock {
 		return TickleDbStoreMockClient{}
 	}
-	
+
 	connection := fmt.Sprintf("%v:%v", constants.GRPC_HOST, constants.GRPC_PORT)
 	conn, err := grpc.Dial(connection, grpc.WithInsecure())
 	if err != nil {

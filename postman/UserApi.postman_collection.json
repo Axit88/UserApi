@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "31234263-e687-4472-9861-ecf788a742a4",
+		"_postman_id": "52c7e794-ac00-4b6c-91e2-f9c7ac3dab87",
 		"name": "UserApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25411595"
@@ -16,7 +16,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\" : \"30\",\n    \"name\" : \"Tejas\"\n}\n\n\n\n\n\n\n\n",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -24,7 +24,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9090/User/30",
+					"raw": "http://localhost:9090/User/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -32,7 +32,7 @@
 					"port": "9090",
 					"path": [
 						"User",
-						"30"
+						"1"
 					]
 				}
 			},
@@ -45,7 +45,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\" : \"30\",\n    \"name\" : \"Tejas\"\n}\n\n\n\n\n\n\n\n"
+					"raw": "{\n    \"id\" : \"1\",\n    \"name\" : \"Jay\"\n}\n\n\n\n\n\n\n\n"
 				},
 				"url": {
 					"raw": "http://localhost:9090/User/",
@@ -89,7 +89,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\" : \"30\",\n    \"name\" : \"Tejas\"\n}\n\n\n\n\n\n\n\n",
+					"raw": "{\n    \"id\" : \"1\",\n    \"name\" : \"Vikas\"\n}\n\n\n\n\n\n\n\n",
 					"options": {
 						"raw": {
 							"language": "json"

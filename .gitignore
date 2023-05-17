@@ -1,4 +1,4 @@
 .env
 /id_rsa
 /mysql_data
-.DS_STORE
+**/.DS_Store

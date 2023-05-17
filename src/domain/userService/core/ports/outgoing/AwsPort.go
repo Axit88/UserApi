@@ -1,7 +1,6 @@
 package outgoing
 
 import (
-	"database/sql"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -20,8 +19,8 @@ type KinesisClient interface {
 }
 
 type RdsClient interface {
-	CreateDatabase(db *sql.DB, connection string, dbName string) error
-	CreateTable(db *sql.DB, connection string, dbName string, tableName string) error
+	CreateDatabase(dbName string) error
+	CreateTable(dbName string, tableName string) error
 }
 
 type S3Client interface {
