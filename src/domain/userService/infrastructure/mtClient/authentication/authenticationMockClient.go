@@ -19,6 +19,6 @@ func (client AuthenticationMockClient) VerifySession(url string, sessionId strin
 		CompanyId:  "888888888888",
 		SessionKey: "SSKg78FDFFFSsd5swwd",
 	}
-	
+
 	return &res, nil
 }

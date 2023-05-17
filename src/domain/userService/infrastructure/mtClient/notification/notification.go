@@ -74,6 +74,6 @@ func (client NotificationImpl) SendNotification(url string, input model.Notifica
 		client.logger.Errorf(context.Background(), "Notification Response Is Not Correct", err)
 		return nil, err
 	}
-	
+
 	return &res, err
 }

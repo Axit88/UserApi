@@ -12,5 +12,5 @@ func (client TickleDbStoreMockClient) CreateTable(dbDetail model.TickleDbEnvDeta
 	res := pb.CreateTableResponse{
 		TableName: "dummy",
 	}
-	return &res,nil
+	return &res, nil
 }

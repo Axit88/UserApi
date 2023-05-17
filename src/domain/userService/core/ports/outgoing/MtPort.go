@@ -50,4 +50,3 @@ type AuthenticationClient interface {
 // type AuditLogClient interface {
 // 	AddLog(url string, reqM AuditCommon.RequestMeta, schemaField []AuditLog.IngestField, field model.AuditField) error
 // }
-
