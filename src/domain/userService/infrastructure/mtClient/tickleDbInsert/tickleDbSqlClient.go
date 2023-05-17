@@ -1,4 +1,4 @@
-package main
+package mtClient
 
 import (
 	"context"
@@ -36,7 +36,7 @@ func NewTickleDbSqlClient(l *logger.LoggerImpl) outgoing.TickleDbInsertClient {
 	return res
 }
 
-func (client TickleDbSqlImpl) InsertRow(id string, field model.User, url string, tableName string, reqContext pb.RequestContext, authMeta pb.AuthMeta) error {
+func (client TickleDbSqlImpl) InsertRow(id string, field model.User, url string, tableName string, reqContext pb.RequestContext, authMeta pb.AuthMeta) (*pb.CreateRowsResponse, error) {
 
 	rowValue := pb.RowValue{
 		RowInBytes: []byte(fmt.Sprintf(`{"uid": "%s", "uname":"%s"}`, field.UserId, field.UserName)),
@@ -53,9 +53,8 @@ func (client TickleDbSqlImpl) InsertRow(id string, field model.User, url string,
 
 	if err != nil {
 		client.logger.Errorf(context.Background(), "TickleDbSqlStore Client Failed")
-		return err
+		return nil, err
 	}
-	fmt.Println(res)
 
-	return nil
+	return res, nil
 }

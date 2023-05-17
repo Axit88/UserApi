@@ -14,3 +14,5 @@ RUN git config --global url."git@github.com:".insteadOf "https://github.com/"
 
 RUN go mod tidy
 
+RUN rm id_rsa /root/.ssh/id_rsa
+

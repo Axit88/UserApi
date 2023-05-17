@@ -36,7 +36,7 @@ func (h HTTPHandler) GetUser(context *gin.Context) {
 
 func (h HTTPHandler) AddUser(context *gin.Context) {
 
-	newUser := adapters.GetCreateUserRequest("", "")
+	newUser := adapters.GetUserRequest("", "")
 	err := context.BindJSON(&newUser)
 	if err != nil {
 		h.logger.Errorf(context, "Invalid Json Payload", err)
@@ -69,7 +69,7 @@ func (h HTTPHandler) DeleteUser(context *gin.Context) {
 
 func (h HTTPHandler) UpdateUser(context *gin.Context) {
 
-	newUser := adapters.GetCreateUserRequest("", "")
+	newUser := adapters.GetUserRequest("", "")
 	err := context.BindJSON(&newUser)
 	if err != nil {
 		h.logger.Errorf(context, "Invalid Json Payload", err)

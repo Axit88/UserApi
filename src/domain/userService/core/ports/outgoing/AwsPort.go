@@ -2,6 +2,7 @@ package outgoing
 
 import (
 	"database/sql"
+	"time"
 
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
@@ -25,6 +26,10 @@ type RdsClient interface {
 
 type S3Client interface {
 	PutObjectInS3(sess *session.Session, bucketname string) (*s3.PutObjectOutput, error)
+}
+
+type RedisClient interface {
+	RedisSetkey(key string, value string, expiryTime time.Duration) error
 }
 
 type SqsClient interface {

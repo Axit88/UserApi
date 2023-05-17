@@ -1,4 +1,4 @@
-package main
+package mtClient
 
 import (
 	"github.com/Axit88/UserApi/src/domain/userService/core/model"

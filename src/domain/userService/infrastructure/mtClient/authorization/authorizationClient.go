@@ -1,4 +1,4 @@
-package main
+package mtClient
 
 import (
 	"context"
@@ -35,30 +35,28 @@ func NewAuthorizationClient(l *logger.LoggerImpl) outgoing.AuthorizationClient {
 	return res
 }
 
-func (client AuthorizationImpl) GetCompnanyRolePermission(url string, companyId string, reqMeta common.RequestMeta, recMeta common.RecordMeta) error {
+func (client AuthorizationImpl) GetCompnanyRolePermission(url string, companyId string, reqMeta common.RequestMeta, recMeta common.RecordMeta) (*pb.GetRoleAndPermissionsResponse, error) {
 	data := pb.GetRoleAndPermissionsRequest{RequestMeta: &reqMeta, RecordMeta: &recMeta}
 	data.CompanyIds = append(data.CompanyIds, companyId)
 
 	roles, err := client.AuthorizationService.GetRolesAndPermissions(context.Background(), &data)
 	if err != nil {
 		client.logger.Errorf(context.Background(), "Authorization Client Failed", err)
-		return err
+		return nil, err
 	}
-	fmt.Println(roles)
 
-	return nil
+	return roles, nil
 }
 
-func (client AuthorizationImpl) GetUserRolePermission(url string, userId string, reqMeta common.RequestMeta, recMeta common.RecordMeta) error {
+func (client AuthorizationImpl) GetUserRolePermission(url string, userId string, reqMeta common.RequestMeta, recMeta common.RecordMeta) (*pb.GetUserRolesAndPermissionsResponse, error) {
 
 	data := pb.GetUserRolesAndPermissionsRequest{UserId: userId, RequestMeta: &reqMeta, RecordMeta: &recMeta}
 
 	roles, err := client.AuthorizationService.GetUserRolesAndPermissions(context.Background(), &data)
 	if err != nil {
 		client.logger.Errorf(context.Background(), "Authorization Client Failed", err)
-		return err
+		return nil, err
 	}
-	fmt.Println(roles)
 
-	return nil
+	return roles, nil
 }

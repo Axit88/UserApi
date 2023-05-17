@@ -8,21 +8,23 @@ import (
 
 	// AuditLog "github.com/MindTickle/platform-protos/pb/auditlogsservice"
 	// AuditCommon "github.com/MindTickle/platform-protos/pb/common"
+	auth "github.com/MindTickle/content-protos/pb/authorisation"
 	event "github.com/MindTickle/platform-protos/pb/event"
+	tickleDb "github.com/MindTickle/storageprotos/pb/tickleDb"
 	sqlStore "github.com/MindTickle/storageprotos/pb/tickleDbSqlStore"
 )
 
 type TickleDbCreateTableClient interface {
-	CreateTable(dbDetail model.TickleDbEnvDetail) error
+	CreateTable(dbDetail model.TickleDbEnvDetail) (*tickleDb.CreateTableResponse, error)
 }
 
 type TickleDbInsertClient interface {
-	InsertRow(id string, field model.User, url string, tableName string, reqContext sqlStore.RequestContext, authMeta sqlStore.AuthMeta) error
+	InsertRow(id string, field model.User, url string, tableName string, reqContext sqlStore.RequestContext, authMeta sqlStore.AuthMeta) (*sqlStore.CreateRowsResponse, error)
 }
 
 type AuthorizationClient interface {
-	GetCompnanyRolePermission(url string, companyId string, reqMeta authCommon.RequestMeta, recMeta authCommon.RecordMeta) error
-	GetUserRolePermission(url string, userId string, reqMeta authCommon.RequestMeta, recMeta authCommon.RecordMeta) error
+	GetCompnanyRolePermission(url string, companyId string, reqMeta authCommon.RequestMeta, recMeta authCommon.RecordMeta) (*auth.GetRoleAndPermissionsResponse, error)
+	GetUserRolePermission(url string, userId string, reqMeta authCommon.RequestMeta, recMeta authCommon.RecordMeta) (*auth.GetUserRolesAndPermissionsResponse, error)
 }
 
 type EventClient interface {
@@ -48,3 +50,4 @@ type AuthenticationClient interface {
 // type AuditLogClient interface {
 // 	AddLog(url string, reqM AuditCommon.RequestMeta, schemaField []AuditLog.IngestField, field model.AuditField) error
 // }
+

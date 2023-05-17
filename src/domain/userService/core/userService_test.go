@@ -34,7 +34,7 @@ func init() {
 func TestAddUser(t *testing.T) {
 
 	for _, usr := range Cases {
-		input := adapters.GetCreateUserRequest(usr.UserId, usr.UserName)
+		input := adapters.GetUserRequest(usr.UserId, usr.UserName)
 		err := facade.AddUser(input)
 		assert.Nil(t, err)
 	}

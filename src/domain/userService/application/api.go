@@ -9,7 +9,6 @@ import (
 	"github.com/MindTickle/mt-go-logger/logger"
 )
 
-// Application implements the APIPort interface
 type Application struct {
 	logger *logger.LoggerImpl
 	facade incoming.UserService
@@ -20,7 +19,7 @@ func NewApplication(usr incoming.UserService, l *logger.LoggerImpl) incoming.API
 }
 
 func (apia Application) ProcessAddUser(userId string, userName string) error {
-	input := adapters.GetCreateUserRequest(userId, userName)
+	input := adapters.GetUserRequest(userId, userName)
 
 	err := apia.facade.AddUser(input)
 	if err != nil {

@@ -20,5 +20,5 @@ func main() {
 	}
 }
 
-// go run restServer.go
+
 // go run src/server/restServer/restServer.go

@@ -11,6 +11,7 @@ import (
 )
 
 func UserServiceContainer() (*dig.Container, error) {
+
 	container := dig.New()
 	err := container.Provide(loggerUtil.InitLogger)
 	err = container.Provide(dbClient.NewDbClient)

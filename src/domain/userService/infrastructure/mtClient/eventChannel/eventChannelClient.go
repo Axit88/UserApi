@@ -1,4 +1,4 @@
-package main
+package mtClient
 
 import (
 	"fmt"
@@ -44,12 +44,11 @@ func (client EventChannelImpl) CreateEventChannel(ctx context.Context, url strin
 		Parallelism: channelData.Parallelism,
 		State:       pb.EventChannel_ENABLED,
 	}
-	eventChannel, err := client.EventChannelService.CreateEventChannel(ctx, &pb.CreateEventChannelRequest{EventChannel: newChannel})
+	_, err := client.EventChannelService.CreateEventChannel(ctx, &pb.CreateEventChannelRequest{EventChannel: newChannel})
 	if err != nil {
 		client.logger.Errorf(context.Background(), "EventChannel Client Failed", err)
 		return err
 	}
 
-	fmt.Println(eventChannel)
 	return nil
 }

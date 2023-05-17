@@ -21,5 +21,5 @@ func main() {
 	}
 }
 
-// go run grpcServer.go
+
 // go run src/server/grpcServer/grpcServer.go

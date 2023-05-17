@@ -2,22 +2,32 @@ package awsClient
 
 import (
 	"context"
-	"fmt"
+	"time"
 
+	"github.com/Axit88/UserApi/src/domain/userService/core/ports/outgoing"
+	"github.com/MindTickle/mt-go-logger/logger"
 	"github.com/go-redis/redis/v8"
 )
 
-func RedisSet(client *redis.Client, redisEndpoint string) error {
+type OutgoingRedisImpl struct {
+	logger *logger.LoggerImpl
+	redis  *redis.Client
+}
 
-	err := client.Set(context.Background(), "name", "jay", 0).Err()
-	if err != nil {
-		return err
-	}
+func NewOutgoingRedisClient(l *logger.LoggerImpl) outgoing.RedisClient {
 
-	val, err := client.Get(context.Background(), "name").Result()
-	if err != nil {
-		return err
+	redisClient := redis.NewClient(&redis.Options{
+		Addr: "redisEndpoint", // Redis server address
+		DB:   0,               // Redis database number
+	})
+
+	return &OutgoingRedisImpl{
+		logger: l,
+		redis:  redisClient,
 	}
-	fmt.Println("key", val)
-	return nil
+}
+
+func (client OutgoingRedisImpl) RedisSetkey(key string, value string, expiryTime time.Duration) error {
+	err := client.redis.Set(context.Background(), key, value, expiryTime).Err()
+	return err
 }

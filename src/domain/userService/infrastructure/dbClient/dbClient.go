@@ -135,7 +135,7 @@ func (da DbImpl) Select(userId string) (*model.User, error) {
 		}
 	}
 
-	output := adapters.GetCreateUserRequest(id, name)
+	output := adapters.GetUserRequest(id, name)
 	return output, nil
 }
 

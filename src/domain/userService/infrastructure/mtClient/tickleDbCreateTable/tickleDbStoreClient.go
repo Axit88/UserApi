@@ -1,4 +1,4 @@
-package main
+package mtClient
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-type TickleDbStoreImplImpl struct {
+type TickleDbStoreImpl struct {
 	TickleDbStoreImplService pb.StoreManagerClient
 	logger                   *logger.LoggerImpl
 }
@@ -22,21 +22,21 @@ func NewTickleDbStoreImplClient(l *logger.LoggerImpl) outgoing.TickleDbCreateTab
 	if constants.IsMock {
 		return TickleDbStoreMockClient{}
 	}
-
+	
 	connection := fmt.Sprintf("%v:%v", constants.GRPC_HOST, constants.GRPC_PORT)
 	conn, err := grpc.Dial(connection, grpc.WithInsecure())
 	if err != nil {
 		return nil
 	}
 
-	res := TickleDbStoreImplImpl{}
+	res := TickleDbStoreImpl{}
 	res.TickleDbStoreImplService = pb.NewStoreManagerClient(conn)
 	res.logger = l
 
 	return res
 }
 
-func (client TickleDbStoreImplImpl) CreateTable(dbDetail model.TickleDbEnvDetail) error {
+func (client TickleDbStoreImpl) CreateTable(dbDetail model.TickleDbEnvDetail) (*pb.CreateTableResponse, error) {
 
 	myTable := &pb.Table{
 		TableName: dbDetail.TableName,
@@ -73,8 +73,8 @@ func (client TickleDbStoreImplImpl) CreateTable(dbDetail model.TickleDbEnvDetail
 	res, err := client.TickleDbStoreImplService.CreateTable(context.Background(), &pb.CreateTableRequest{Table: myTable})
 	if err != nil {
 		client.logger.Errorf(context.Background(), "TickleDbStore Client Failed", err)
-		return err
+		return nil, err
 	}
-	fmt.Println(res)
-	return nil
+
+	return res, nil
 }
