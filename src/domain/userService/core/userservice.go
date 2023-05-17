@@ -11,11 +11,14 @@ import (
 
 type UserServiceImpl struct {
 	logger *logger.LoggerImpl
-	db     outgoing.DbPort
+	db     outgoing.DbClient
 }
 
-func New(db outgoing.DbPort, l *logger.LoggerImpl) incoming.UserService {
-	return &UserServiceImpl{db: db, logger: l}
+func NewFacadeClient(db outgoing.DbClient, l *logger.LoggerImpl) incoming.UserService {
+	return &UserServiceImpl{
+		db:     db,
+		logger: l,
+	}
 }
 
 func (worker UserServiceImpl) AddUser(input *model.User) error {

@@ -4,7 +4,7 @@ package pb ;
 
 option go_package = "./";
 
-service TestApi{
+service UserApi{
     rpc AddUser (AddUserInput) returns (AddUserOutput) {}
     rpc GetUser (GetUserInput) returns (GetUserOutput) {}
     rpc DeleteUser (DeleteUserInput) returns (DeleteUserOutput) {}

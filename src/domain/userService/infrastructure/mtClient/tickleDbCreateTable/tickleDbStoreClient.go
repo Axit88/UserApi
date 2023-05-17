@@ -18,7 +18,6 @@ type TickleDbStoreImpl struct {
 }
 
 func NewTickleDbStoreImplClient(l *logger.LoggerImpl) outgoing.TickleDbCreateTableClient {
-
 	if constants.IsMock {
 		return TickleDbStoreMockClient{}
 	}
@@ -29,15 +28,15 @@ func NewTickleDbStoreImplClient(l *logger.LoggerImpl) outgoing.TickleDbCreateTab
 		return nil
 	}
 
-	res := TickleDbStoreImpl{}
-	res.TickleDbStoreImplService = pb.NewStoreManagerClient(conn)
-	res.logger = l
+	res := TickleDbStoreImpl{
+		TickleDbStoreImplService: pb.NewStoreManagerClient(conn),
+		logger:                   l,
+	}
 
 	return res
 }
 
 func (client TickleDbStoreImpl) CreateTable(dbDetail model.TickleDbEnvDetail) (*pb.CreateTableResponse, error) {
-
 	myTable := &pb.Table{
 		TableName: dbDetail.TableName,
 		Ttl:       0,

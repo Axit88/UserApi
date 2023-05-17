@@ -16,13 +16,14 @@ type AuthenticationImpl struct {
 }
 
 func NewAuthenticationClient(l *logger.LoggerImpl) outgoing.AuthenticationClient {
-
 	if constants.IsMock {
 		return AuthenticationMockClient{}
 	}
 
-	res := AuthenticationImpl{}
-	res.logger = l
+	res := AuthenticationImpl{
+		logger: l,
+	}
+
 	return res
 }
 

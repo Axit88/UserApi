@@ -8,7 +8,7 @@ import (
 
 	"github.com/Axit88/UserApi/src/config"
 	ports "github.com/Axit88/UserApi/src/domain/userService/core/ports/incoming"
-	"github.com/Axit88/UserApi/src/domain/userService/infrastructure/grpcClient/pb"
+	pb "github.com/Axit88/UserApi/src/domain/userService/infrastructure/grpcClient/pb"
 	"github.com/MindTickle/mt-go-logger/logger"
 
 	"google.golang.org/grpc"
@@ -17,11 +17,14 @@ import (
 type Adapter struct {
 	logger *logger.LoggerImpl
 	api    ports.APIPort
-	pb.UnimplementedTestApiServer
+	pb.UnimplementedUserApiServer
 }
 
-func NewAdapter(api ports.APIPort, l *logger.LoggerImpl) *Adapter {
-	return &Adapter{api: api, logger: l}
+func NewGrpcClient(api ports.APIPort, l *logger.LoggerImpl) *Adapter {
+	return &Adapter{
+		api:    api,
+		logger: l,
+	}
 }
 
 func (grpca Adapter) GetUser(ctx context.Context, req *pb.GetUserInput) (*pb.GetUserOutput, error) {
@@ -96,7 +99,7 @@ func (grpca Adapter) Run() {
 
 	userServiceServer := grpca
 	grpcServer := grpc.NewServer()
-	pb.RegisterTestApiServer(grpcServer, userServiceServer)
+	pb.RegisterUserApiServer(grpcServer, userServiceServer)
 
 	if err := grpcServer.Serve(listen); err != nil {
 		log.Fatalf("failed to serve gRPC server over port 8080: %v", err)
@@ -114,7 +117,7 @@ func StartServer(server *Adapter) {
 	}
 
 	grpcServer := grpc.NewServer()
-	pb.RegisterTestApiServer(grpcServer, server)
+	pb.RegisterUserApiServer(grpcServer, server)
 
 	if err := grpcServer.Serve(listen); err != nil {
 		log.Fatalf("failed to serve gRPC server over port 8080: %v", err)

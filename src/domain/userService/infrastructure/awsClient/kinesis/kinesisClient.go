@@ -3,6 +3,7 @@ package awsClient
 import (
 	"context"
 
+	"github.com/Axit88/UserApi/src/constants"
 	outgoing "github.com/Axit88/UserApi/src/domain/userService/core/ports/outgoing"
 	"github.com/MindTickle/mt-go-logger/logger"
 	"github.com/aws/aws-sdk-go/aws"
@@ -10,17 +11,21 @@ import (
 	"github.com/aws/aws-sdk-go/service/kinesis"
 )
 
-type OutgoingKinesis struct {
+type KinesisImpl struct {
 	logger *logger.LoggerImpl
 }
 
-func NewOutgoingKinesisClient(l *logger.LoggerImpl) outgoing.KinesisClient {
-	return &OutgoingKinesis{
+func NewKinesisClient(l *logger.LoggerImpl) outgoing.KinesisClient {
+	if constants.IsMock {
+		return KinesisMockClient{}
+	}
+
+	return &KinesisImpl{
 		logger: l,
 	}
 }
 
-func (client OutgoingKinesis) PushRecordToKinesis(sess *session.Session, kinesisStreamName string, data string, partitionKey string) (*kinesis.PutRecordOutput, error) {
+func (client KinesisImpl) PushRecordToKinesis(sess *session.Session, kinesisStreamName string, data string, partitionKey string) (*kinesis.PutRecordOutput, error) {
 
 	svc := kinesis.New(sess)
 	res, err := svc.PutRecord(&kinesis.PutRecordInput{

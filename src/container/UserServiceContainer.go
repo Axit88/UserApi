@@ -16,9 +16,9 @@ func UserServiceContainer() (*dig.Container, error) {
 	err := container.Provide(loggerUtil.InitLogger)
 	err = container.Provide(dbClient.NewDbClient)
 	err = container.Provide(application.NewApplication)
-	err = container.Provide(core.New)
+	err = container.Provide(core.NewFacadeClient)
 	err = container.Provide(rest.NewHTTPHandler)
-	err = container.Provide(gRPC.NewAdapter)
+	err = container.Provide(gRPC.NewGrpcClient)
 
 	return container, err
 }

@@ -29,9 +29,11 @@ func NewEventClient(l *logger.LoggerImpl) outgoing.EventClient {
 		return nil
 	}
 
-	res := EventImpl{}
-	res.EventService = event.NewEventServiceClient(conn)
-	res.logger = l
+	res := EventImpl{
+		EventService: event.NewEventServiceClient(conn),
+		logger:       l,
+	}
+
 	return res
 }
 

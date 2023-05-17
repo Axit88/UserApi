@@ -18,7 +18,7 @@ func init() {
 	constants.IsMock = true
 	l, _ := loggerUtil.InitLogger()
 	db, _ := dbClient.NewDbClient(l)
-	facade := core.New(db, l)
+	facade := core.NewFacadeClient(db, l)
 
 	app = &Application{
 		facade: facade,

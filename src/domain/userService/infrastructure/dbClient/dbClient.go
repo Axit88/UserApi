@@ -20,7 +20,7 @@ type DbImpl struct {
 	db     *sql.DB
 }
 
-func NewDbClient(l *logger.LoggerImpl) (outgoing.DbPort, error) {
+func NewDbClient(l *logger.LoggerImpl) (outgoing.DbClient, error) {
 	if constants.IsMock {
 		return DbMockClient{}, nil
 	}

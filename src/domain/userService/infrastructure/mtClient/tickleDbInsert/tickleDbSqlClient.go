@@ -18,7 +18,6 @@ type TickleDbSqlImpl struct {
 }
 
 func NewTickleDbSqlClient(l *logger.LoggerImpl) outgoing.TickleDbInsertClient {
-
 	if constants.IsMock {
 		return TickleDbSqlClient{}
 	}
@@ -29,15 +28,15 @@ func NewTickleDbSqlClient(l *logger.LoggerImpl) outgoing.TickleDbInsertClient {
 		return nil
 	}
 
-	res := TickleDbSqlImpl{}
-	res.TickleDbSqlService = pb.NewSqlStoreClient(conn)
-	res.logger = l
+	res := TickleDbSqlImpl{
+		TickleDbSqlService: pb.NewSqlStoreClient(conn),
+		logger:             l,
+	}
 
 	return res
 }
 
 func (client TickleDbSqlImpl) InsertRow(id string, field model.User, url string, tableName string, reqContext pb.RequestContext, authMeta pb.AuthMeta) (*pb.CreateRowsResponse, error) {
-
 	rowValue := pb.RowValue{
 		RowInBytes: []byte(fmt.Sprintf(`{"uid": "%s", "uname":"%s"}`, field.UserId, field.UserName)),
 		AuthMeta:   &authMeta,

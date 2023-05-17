@@ -13,14 +13,14 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type OutgoingRds struct {
+type RdsImpl struct {
 	logger *logger.LoggerImpl
 	db     *sql.DB
 }
 
-func NewOutgoingRdsClient(l *logger.LoggerImpl) outgoing.RdsClient {
+func NewRdsClient(l *logger.LoggerImpl) outgoing.RdsClient {
 	if constants.IsMock {
-		return OutgoingRds{}
+		return RdsImpl{}
 	}
 
 	var cfn, _ = config.NewConfig()
@@ -32,13 +32,13 @@ func NewOutgoingRdsClient(l *logger.LoggerImpl) outgoing.RdsClient {
 		log.Fatalf("db connection failure: %v", err)
 	}
 
-	return &OutgoingRds{
+	return &RdsImpl{
 		logger: l,
 		db:     db,
 	}
 }
 
-func (client OutgoingRds) CreateDatabase(dbName string) error {
+func (client RdsImpl) CreateDatabase(dbName string) error {
 
 	_, err := client.db.Exec("CREATE DATABASE IF NOT EXISTS " + dbName)
 	if err != nil {
@@ -49,7 +49,7 @@ func (client OutgoingRds) CreateDatabase(dbName string) error {
 	return nil
 }
 
-func (client OutgoingRds) CreateTable(dbName string, tableName string) error {
+func (client RdsImpl) CreateTable(dbName string, tableName string) error {
 
 	query := fmt.Sprintf(`CREATE TABLE IF NOT EXISTS %s (
         id INT NOT NULL AUTO_INCREMENT,

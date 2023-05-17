@@ -2,7 +2,7 @@ package outgoing
 
 import "github.com/Axit88/UserApi/src/domain/userService/core/model"
 
-type DbPort interface {
+type DbClient interface {
 	CloseDbConnection()
 	Insert(input *model.User) error
 	Select(userId string) (*model.User, error)

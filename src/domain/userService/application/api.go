@@ -15,7 +15,10 @@ type Application struct {
 }
 
 func NewApplication(usr incoming.UserService, l *logger.LoggerImpl) incoming.APIPort {
-	return &Application{facade: usr, logger: l}
+	return &Application{
+		facade: usr,
+		logger: l,
+	}
 }
 
 func (apia Application) ProcessAddUser(userId string, userName string) error {

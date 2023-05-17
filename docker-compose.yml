@@ -7,7 +7,7 @@ services:
     ports:
       - "9090:9090"  
     volumes:
-      - .:/usr/src/app
+      - .:/app
     command: go run src/server/restServer/restServer.go -b 0.0.0.0
     depends_on:
       - db
@@ -17,7 +17,7 @@ services:
     ports:
       - "8080:8080"  
     volumes:
-      - .:/usr/src/app
+      - .:/app
     command: go run src/server/grpcServer/grpcServer.go -b 0.0.0.0
     depends_on:
       - db

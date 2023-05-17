@@ -16,6 +16,7 @@ var Cases []model.User
 
 func init() {
 	constants.IsMock = true
+	
 	l, _ := loggerUtil.InitLogger()
 	db, _ := dbClient.NewDbClient(l)
 	facade = &UserServiceImpl{

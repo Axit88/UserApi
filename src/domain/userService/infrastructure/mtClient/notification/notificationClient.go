@@ -19,13 +19,14 @@ type NotificationImpl struct {
 }
 
 func NewNotificationClient(l *logger.LoggerImpl) outgoing.NotficationClient {
-
 	if constants.IsMock {
 		return NotificationMockClient{}
 	}
 
-	res := NotificationImpl{}
-	res.logger = l
+	res := NotificationImpl{
+		logger: l,
+	}
+
 	return res
 }
 

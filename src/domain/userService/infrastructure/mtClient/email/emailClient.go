@@ -18,13 +18,14 @@ type EmailImpl struct {
 }
 
 func NewEmailClient(l *logger.LoggerImpl) outgoing.EmailClient {
-
 	if constants.IsMock {
 		return EmailMockClient{}
 	}
 
-	res := EmailImpl{}
-	res.logger = l
+	res := EmailImpl{
+		logger: l,
+	}
+
 	return res
 }
 

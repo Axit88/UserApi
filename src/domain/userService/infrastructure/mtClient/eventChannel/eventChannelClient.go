@@ -18,7 +18,6 @@ type EventChannelImpl struct {
 }
 
 func NewEventChannelClient(l *logger.LoggerImpl) outgoing.EventChannelClient {
-
 	if constants.IsMock {
 		return EventChannelMockClient{}
 	}
@@ -29,9 +28,10 @@ func NewEventChannelClient(l *logger.LoggerImpl) outgoing.EventChannelClient {
 		return nil
 	}
 
-	res := EventChannelImpl{}
-	res.EventChannelService = pb.NewEventChannelServiceClient(conn)
-	res.logger = l
+	res := EventChannelImpl{
+		EventChannelService: pb.NewEventChannelServiceClient(conn),
+		logger:              l,
+	}
 
 	return res
 }

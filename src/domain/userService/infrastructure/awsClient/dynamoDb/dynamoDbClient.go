@@ -3,6 +3,7 @@ package awsClient
 import (
 	"context"
 
+	"github.com/Axit88/UserApi/src/constants"
 	"github.com/Axit88/UserApi/src/domain/userService/core/ports/outgoing"
 	"github.com/MindTickle/mt-go-logger/logger"
 	"github.com/aws/aws-sdk-go/aws"
@@ -10,17 +11,21 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-type OutgoingDynamoDb struct {
+type DynamoDbImpl struct {
 	logger *logger.LoggerImpl
 }
 
-func NewOutgoingDynamoDbClient(l *logger.LoggerImpl) outgoing.DynamoDbClient {
-	return &OutgoingDynamoDb{
+func NewDynamoDbClient(l *logger.LoggerImpl) outgoing.DynamoDbClient {
+	if constants.IsMock {
+		return DynamoDbMockClient{}
+	}
+
+	return &DynamoDbImpl{
 		logger: l,
 	}
 }
 
-func (client OutgoingDynamoDb) PushItemToDynamoDb(sess *session.Session, tableName string, id string, name string) (*dynamodb.PutItemOutput, error) {
+func (client DynamoDbImpl) PushItemToDynamoDb(sess *session.Session, tableName string, id string, name string) (*dynamodb.PutItemOutput, error) {
 	input := dynamodb.PutItemInput{
 		TableName: aws.String(tableName),
 		Item: map[string]*dynamodb.AttributeValue{

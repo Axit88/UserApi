@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 
+	"github.com/Axit88/UserApi/src/constants"
 	outgoing "github.com/Axit88/UserApi/src/domain/userService/core/ports/outgoing"
 	"github.com/MindTickle/mt-go-logger/logger"
 	"github.com/aws/aws-sdk-go/aws"
@@ -11,17 +12,21 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-type OutgoingS3 struct {
+type S3Impl struct {
 	logger *logger.LoggerImpl
 }
 
-func NewOutgoingS3Client(l *logger.LoggerImpl) outgoing.S3Client {
-	return &OutgoingS3{
+func NewS3Client(l *logger.LoggerImpl) outgoing.S3Client {
+	if constants.IsMock {
+		return S3MockClient{}
+	}
+
+	return &S3Impl{
 		logger: l,
 	}
 }
 
-func (client OutgoingS3) PutObjectInS3(sess *session.Session, bucketname string) (*s3.PutObjectOutput, error) {
+func (client S3Impl) PutObjectInS3(sess *session.Session, bucketname string) (*s3.PutObjectOutput, error) {
 
 	svc := s3.New(sess)
 

@@ -18,7 +18,6 @@ type AuthorizationImpl struct {
 }
 
 func NewAuthorizationClient(l *logger.LoggerImpl) outgoing.AuthorizationClient {
-
 	if constants.IsMock {
 		return AuthorizationMockClient{}
 	}
@@ -29,9 +28,11 @@ func NewAuthorizationClient(l *logger.LoggerImpl) outgoing.AuthorizationClient {
 		return nil
 	}
 
-	res := AuthorizationImpl{}
-	res.AuthorizationService = pb.NewRolePermissionServiceClient(conn)
-	res.logger = l
+	res := AuthorizationImpl{
+		AuthorizationService: pb.NewRolePermissionServiceClient(conn),
+		logger:               l,
+	}
+
 	return res
 }
 
