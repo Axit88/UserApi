@@ -22,6 +22,7 @@ BloomRPC proto file located at - bloomRPC/userApi.proto
 ### Prerequisites
 Change DATABASE_HOST_URL="db:3306" at src/env/local.env    
 Run this command fetch id_rsa file from local machine  
+Make sure no other container running on port 3306, 8080, 9090
 <pre> bash prep.sh </pre> 
 
 ### Run Command 
