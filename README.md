@@ -3,7 +3,7 @@
 
 ## Locally
 
-### prerequisites
+### Prerequisites
 Create database using given SQL script located at - mysql_database/database.sql  
 Update your database credential at - src/env/local.env  
 If you want your request go to MockClient then set IsMock=true located in file - src/constants/constants.go
