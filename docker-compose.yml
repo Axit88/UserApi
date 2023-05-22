@@ -30,9 +30,11 @@ services:
     environment:
       MYSQL_DATABASE: UserService
       MYSQL_PASSWORD: root
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./mysql_data:/var/lib/mysql
+      - ./mysql_database:/docker-entrypoint-initdb.d
+
+
 
 
